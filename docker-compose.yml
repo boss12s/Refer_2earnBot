@@ -4,10 +4,12 @@ services:
   web:
     build: .
     ports:
-      - "80:80"
-    volumes:
-      - .:/var/www/html
+      - "10000:80"  # Render requires port 10000 for free tier
     environment:
       - APACHE_RUN_USER=www-data
       - APACHE_RUN_GROUP=www-data
+      - APACHE_LOG_DIR=/var/log/apache2
+    volumes:
+      - ./users.json:/var/www/html/users.json
+      - ./error.log:/var/www/html/error.log
     restart: unless-stopped
