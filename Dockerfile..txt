@@ -7,11 +7,17 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Enable Apache rewrite module
 RUN a2enmod rewrite
 
+# Verify files exist before copying
+RUN ls -la /var/www/html
+
 # Set working directory
 WORKDIR /var/www/html
 
 # Copy application files
 COPY . .
+
+# Verify copied files
+RUN ls -la
 
 # Set file permissions
 RUN chown -R www-data:www-data /var/www/html && \
